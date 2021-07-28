@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
+FROM php:latest
 
-LABEL maintainer="Bibin Wilson <bibinwilsonn@gmail.com>"
+LABEL maintainer="Csonka Bálint <balint777@gmail.com>"
 
 # Make sure the package repository is up to date.
 RUN apt-get update && \
@@ -10,10 +10,12 @@ RUN apt-get update && \
     apt-get install -qy openssh-server && \
     sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd && \
     mkdir -p /var/run/sshd && \
-# Install JDK 8 (latest stable edition at 2019-04-01)
-    apt-get install -qy openjdk-8-jdk && \
-# Install maven
-    apt-get install -qy maven && \
+# PostgreSQL 
+    apt-get install -qy postgresql && \
+# Install composer
+    apt-get install -qy composer && \
+# Install nodejs
+    apt-get install -qy nodejs && \
 # Cleanup old packages
     apt-get -qy autoremove && \
 # Add user jenkins to the image
